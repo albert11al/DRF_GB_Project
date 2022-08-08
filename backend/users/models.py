@@ -6,5 +6,5 @@ from django.contrib.auth.models import AbstractUser
 class MyUser(AbstractUser):
     first_name = models.CharField(max_length=64, blank=True)
     last_name = models.CharField(max_length=64, blank=True)
-    birthday_year = models.PositiveIntegerField(blank=True)
+    birthday_year = models.PositiveIntegerField(null=True, blank=True)
     email = models.EmailField(unique=True)
