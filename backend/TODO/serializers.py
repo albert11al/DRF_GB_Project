@@ -1,3 +1,4 @@
+from rest_framework.renderers import JSONRenderer
 from rest_framework.serializers import ModelSerializer
 from TODO.models import Project, Todo
 
@@ -10,3 +11,4 @@ class TodoSerializer(ModelSerializer):
     class Meta:
         model = Todo
         fields = '__all__'
+

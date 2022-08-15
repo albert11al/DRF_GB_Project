@@ -1,8 +1,14 @@
-from django.shortcuts import render
+from TODO.models import Project, Todo
 from TODO.serializers import ProjectSerializer, TodoSerializer
+from rest_framework.viewsets import ModelViewSet
 
-def todo_get(request):
-    pass
+class ProjectViews(ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
 
-def todo_post(request):
-    pass
+class TodoViews(ModelViewSet):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+
+
