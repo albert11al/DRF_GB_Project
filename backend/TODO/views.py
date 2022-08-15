@@ -1,3 +1,8 @@
 from django.shortcuts import render
+from TODO.serializers import ProjectSerializer, TodoSerializer
 
-# Create your views here.
+def todo_get(request):
+    pass
+
+def todo_post(request):
+    pass
