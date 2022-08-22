@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import UserList from './components/UserList.js';
 import ProjectList from './components/ProjectList.js';
-import UserProjectList from './components/UserProjectList.js';
 import TodoList from './components/TodoList.js'
 import MenuList from './components/Menu.js';
 import Footer from './components/Footer.js';
@@ -86,10 +85,6 @@ class App extends React.Component {
                                 <Route exact path='/' element={<UserList users={this.state.users} />} />
                                 <Route exact path='/projects' element={<ProjectList projects={this.state.projects} />} />
                                 <Route exact path='/todos' element={<TodoList todos={this.state.todos} />} />
-                                <Route path='/users'>
-                                    <Route index element={UserList users={this.state.users} />} />
-                                    <Route path=':userID' element={<UserProjectList projects={this.state.projects} />} />
-                                </Route>
                             </Routes>
                         </div>
                     <div className="App">
