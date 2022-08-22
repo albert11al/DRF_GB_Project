@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-const UserItem = ({user}) => {
+const ProjectItem = ({user}) => {
     return (
         <tr>
             <td>
@@ -19,7 +19,7 @@ const UserItem = ({user}) => {
     )
 }
 
-const UserList = ({users}) => {
+const ProjectList = ({users}) => {
     return (
         <table>
             <th>
@@ -34,8 +34,8 @@ const UserList = ({users}) => {
             <th>
                 email
             </th>
-            {users.map((user) => <UserItem user={user} />)}
+            {users.map((user) => <ProjectItem user={user} />)}
         </table>
     )
 }
-export default UserList
+export default ProjectList
