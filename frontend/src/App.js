@@ -5,6 +5,7 @@ import ProjectList from './components/ProjectList.js';
 import TodoList from './components/TodoList.js'
 import MenuList from './components/Menu.js';
 import Footer from './components/Footer.js';
+import LoginForms from './components/LoginForms';
 import {HashRouter, BrowserRouter, Route, Routes, Link, Navigate} from 'react-router-dom';
 
 
@@ -78,6 +79,9 @@ class App extends React.Component {
                                 <li>
                                     <Link to='/todos'>TODO</Link>
                                 </li>
+                                <li>
+                                    <Link to='/login'>Login</Link>
+                                </li>
                             </ul>
                         </nav>
                         <div className="content">
@@ -85,6 +89,7 @@ class App extends React.Component {
                                 <Route exact path='/' element={<UserList users={this.state.users} />} />
                                 <Route exact path='/projects' element={<ProjectList projects={this.state.projects} />} />
                                 <Route exact path='/todos' element={<TodoList todos={this.state.todos} />} />
+                                <Route exact path='/login' element={<LoginForms/>} />
                             </Routes>
                         </div>
                     <div className="App">
