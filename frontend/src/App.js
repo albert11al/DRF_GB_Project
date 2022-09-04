@@ -28,8 +28,7 @@ class App extends React.Component {
         }
     }
 
-    get_token(username, password) {
-
+    obtainAuthToken(username, password) {
         axios
             .post('http://127.0.0.1:8000/api-token-auth/', {
                 'username:' username,
@@ -42,7 +41,7 @@ class App extends React.Component {
                 this.setState(
                     {
                         'token': token
-                    }, this.getData()
+                    }, this.getData
                 )
             })
             .catch(error => console.log(error))
@@ -57,7 +56,7 @@ class App extends React.Component {
         this.setState(
             {
                 'token': token
-            }, this.getData()
+            }, this.getData
         )
     }
 
@@ -82,7 +81,10 @@ class App extends React.Component {
                     }
                 )
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error)
+                this.setState({'users': []})
+            )}
         axios
             .get('http://127.0.0.1:8000/api/projects/', {'headers': headers})
             .then(response => {
@@ -93,7 +95,10 @@ class App extends React.Component {
                     }
                 )
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error)
+                this.setState({'projects': []})
+            )}
         axios
             .get('http://127.0.0.1:8000/api/todos/', {'headers': headers})
             .then(response => {
@@ -104,7 +109,19 @@ class App extends React.Component {
                     }
                 )
             })
-	    .catch(error => console.log(error))
+	    .catch(error => {
+                console.log(error)
+                this.setState({'todos': []})
+            )}
+    }
+
+    logout(){
+        localStorage.setItem('token', '')
+        this.setState(
+            {
+                'token': '',
+            }, this.getData
+        )
     }
 
     render () {
@@ -124,7 +141,7 @@ class App extends React.Component {
                                     <Link to='/todos'>TODO</Link>
                                 </li>
                                 <li>
-                                    <Link to='/username'>Login</Link>
+                                    {this.isAuth() ? <Link to='/login'>Вход</Link> : <button onClick={() => this.logout()}>Выйти</button>}
                                 </li>
                             </ul>
                         </nav>
@@ -133,7 +150,7 @@ class App extends React.Component {
                                 <Route exact path='/' element={<UserList users={this.state.users} />} />
                                 <Route exact path='/projects' element={<ProjectList projects={this.state.projects} />} />
                                 <Route exact path='/todos' element={<TodoList todos={this.state.todos} />} />
-                                <Route exact path='/username' element={<LoginForms get_token={(username, password) => this.get_token(username, password)} />} />
+                                <Route exact path='/login' element={<LoginForms obtainAuthToken={(username, password) => this.obtainAuthToken(username, password)} />} />
                             </Routes>
                         </div>
                     <div className="App">

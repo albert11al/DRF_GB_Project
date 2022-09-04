@@ -17,7 +17,7 @@ class LoginForms extends React.Component {
     }
 
     handleSubmit(event) {
-        this.props.get_token(this.state.username, this.state.password)
+        this.props.obtainAuthToken(this.state.username, this.state.password)
         //console.log(this.state.username, this.state.password)
         event.preventDefault()
     }
@@ -26,7 +26,7 @@ class LoginForms extends React.Component {
         return (
             <div>
                 <form onSubmit={(event)=> this.handleSubmit(event)}>
-                    <input type="text" name="username" placeholder="username"
+                    <input type="text" name="username" placeholder="login"
                         value={this.state.username} onChange={(event)=>this.handleChange(event)}/>
                     <input type="password" name="password" placeholder="password"
                         value={this.state.password} onChange={(event)=>this.handleChange(event)}/>
