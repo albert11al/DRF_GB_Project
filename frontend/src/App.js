@@ -23,8 +23,28 @@ class App extends React.Component {
             'menu': this.menu,
             'users': [],
             'projects': [],
-            'todos': []
+            'todos': [],
+            'token': ''
         }
+    }
+
+    get_token(login, password) {
+
+        axios
+            .post('http://127.0.0.1:8000/api-token-auth/', {
+                'username:' login,
+                'password:' password
+            })
+            .then(response => {
+                const token = response.data.token
+                console.log('token:', token)
+                this.setState(
+                    {
+                        'token': token
+                    }
+                )
+            })
+            .catch(error => console.log(error))
     }
 
     componentDidMount() {
@@ -89,7 +109,7 @@ class App extends React.Component {
                                 <Route exact path='/' element={<UserList users={this.state.users} />} />
                                 <Route exact path='/projects' element={<ProjectList projects={this.state.projects} />} />
                                 <Route exact path='/todos' element={<TodoList todos={this.state.todos} />} />
-                                <Route exact path='/login' element={<LoginForms/>} />
+                                <Route exact path='/login' element={<LoginForms get_token={(login, password) => this.get_token(login, password)} />} />
                             </Routes>
                         </div>
                     <div className="App">
