@@ -5,7 +5,7 @@ class LoginForms extends React.Component {
         super(props)
 
         this.state = {
-            'login': '',
+            'username': '',
             'password': ''
         }
     }
@@ -17,8 +17,8 @@ class LoginForms extends React.Component {
     }
 
     handleSubmit(event) {
-        this.props.get_token(this.state.login, this.state.password)
-        //console.log(this.state.login, this.state.password)
+        this.props.get_token(this.state.username, this.state.password)
+        //console.log(this.state.username, this.state.password)
         event.preventDefault()
     }
 
@@ -26,8 +26,8 @@ class LoginForms extends React.Component {
         return (
             <div>
                 <form onSubmit={(event)=> this.handleSubmit(event)}>
-                    <input type="text" name="login" placeholder="login"
-                        value={this.state.login} onChange={(event)=>this.handleChange(event)}/>
+                    <input type="text" name="username" placeholder="username"
+                        value={this.state.username} onChange={(event)=>this.handleChange(event)}/>
                     <input type="password" name="password" placeholder="password"
                         value={this.state.password} onChange={(event)=>this.handleChange(event)}/>
                     <input type="submit" value="Login" />
