@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
+    "drf_yasg",
     'corsheaders',
     'users',
     'TODO',
@@ -152,8 +153,12 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ],
+    # http://127.0.0.1:8002/api/authors/
+    # http://127.0.0.1:8002/api/2.0/authors/
     #'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning'
+    #'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning'
+
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.AcceptHeaderVersioning',
     #'DEFAULT_PERMISSION_CLASSES': [
     #    'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     #],
