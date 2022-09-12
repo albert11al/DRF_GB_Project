@@ -64,6 +64,7 @@ class App extends React.Component {
         if (this.isAuth()){
             return {
                 'Authorization': 'Token ' + this.state.token
+                'Accept': 'application/json; version=v2',
             }
         }
         return {}
