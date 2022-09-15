@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include, re_path
+from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
 from users.views import UserModelViewSet
 from TODO.views import ProjectViews, TodoViews
@@ -35,5 +36,6 @@ urlpatterns = [
     path('swagger', schema_view.with_ui()),
     re_path(r'swagger(?P<format>\.json|\.yaml)', schema_view.without_ui()),
     path("graphql/", GraphQLView.as_view(graphiql=True)),
+    #path('', TemplateView.as_view(template_name='index.html'))
 
 ]
