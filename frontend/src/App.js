@@ -6,8 +6,19 @@ import TodoList from './components/TodoList.js'
 import MenuList from './components/Menu.js';
 import Footer from './components/Footer.js';
 import LoginForms from './components/LoginForms';
-import {HashRouter, BrowserRouter, Route, Routes, Link, Navigate} from 'react-router-dom';
+import TodoForms from './components/TodoForms';
+import ProjectForms from './components/ProjectForms';
+import {HashRouter, BrowserRouter, Route, Routes, Link, Navigate, useLocation} from 'react-router-dom';
 
+const NotFound = () => {
+    var {pathname} = useLocation()
+
+    return (
+        <div>
+            Page "{pathname}" not found
+        </div>
+    )
+}
 
 class App extends React.Component {
     menu = [
@@ -26,6 +37,37 @@ class App extends React.Component {
             'todos': [],
             'token': ''
         }
+    }
+
+    deleteTodo(todoId) {
+        let headers = this.getHeaders()
+
+        axios
+            .delete(`http://127.0.0.1:8000/api/todos/${todoId}`, {headers})
+            .then(response => {
+                this.setState({
+                    'todos': this.state.todos.filter((todo) => todo.id != todoId)
+                })
+            })
+            .catch(error => {
+                console.log(error)
+            })
+//        console.log(bookId)
+    }
+
+    createContent(title, users) {
+        //console.log(title, users)
+
+        let headers = this.getHeaders()
+
+        axios
+            .post('http://127.0.0.1:8000/api/todos/', {'title': title, 'users': users}, {headers})
+            .then(response => {
+                this.getData()
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     obtainAuthToken(username, password) {
@@ -142,7 +184,13 @@ class App extends React.Component {
                                     <Link to='/todos'>TODO</Link>
                                 </li>
                                 <li>
-                                    {this.isAuth() ? <Link to='/login'>Вход</Link> : <button onClick={() => this.logout()}>Выйти</button>}
+                                    <Link to='/create_project'>Create project</Link>
+                                </li>
+                                <li>
+                                    <Link to='/create_todo'>Create todo</Link>
+                                </li>
+                                <li>
+                                    {this.isAuth() ? <button onClick={() => this.logOut()}>Logout</button> : <Link to='/login'>Login</Link> }
                                 </li>
                             </ul>
                         </nav>
@@ -150,7 +198,9 @@ class App extends React.Component {
                             <Routes>
                                 <Route exact path='/' element={<UserList users={this.state.users} />} />
                                 <Route exact path='/projects' element={<ProjectList projects={this.state.projects} />} />
-                                <Route exact path='/todos' element={<TodoList todos={this.state.todos} />} />
+                                <Route exact path='/create_todo' element={<TodoForms users={this.state.users} createContent={(title, users) => this.createContent=(title, users)}/>} />
+                                <Route exact path='/create_project' element={<ProjectForms users={this.state.users} createContent={(title, users) => this.createContent(title, users)}/>} />
+                                <Route exact path='/todos' element={<TodoList todos={this.state.todos} users={this.state.users} deleteTodo={(todoId) => this.deleteTodo(todoId)}/>} />
                                 <Route exact path='/login' element={<LoginForms obtainAuthToken={(username, password) => this.obtainAuthToken(username, password)} />} />
                             </Routes>
                         </div>
